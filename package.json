@@ -5,7 +5,8 @@
     "scripts": {
         "test": "jest",
         "test:watch": "jest --watch",
-        "test:verbose": "jest --verbose"
+        "test:verbose": "jest --verbose",
+        "test:cov": "jest --coverage"
     },
     "keywords": [],
     "author": "",
