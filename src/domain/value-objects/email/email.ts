@@ -8,7 +8,7 @@ export class Email {
         this._value = value;
     }
 
-    static create(value: string, validator: EmailValidator) {
+    static create(value: string, validator: EmailValidator): Email {
         if (!validator.isValid(value)) {
             throw new InvalidEmailError(value);
         }
