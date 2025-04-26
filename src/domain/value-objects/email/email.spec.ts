@@ -1,4 +1,4 @@
-import { describe, test } from '@jest/globals';
+import { describe, test, expect, beforeEach, jest } from '@jest/globals';
 import { Email } from './email';
 import { EmailValidator } from '../../contracts/email-validator';
 import { InvalidEmailError } from '../../errors/invalid-email.error';
@@ -8,11 +8,11 @@ describe('Email (Value Object)', () => {
 
     beforeEach(() => {
         validatorMock = {
-            isValid: jest.fn(),
+            isValid: jest.fn<(email: string) => boolean>(),
         };
     });
 
-    test('should create a valid Email value object', () => {
+    test('should create an Email value object when email is valid', () => {
         (validatorMock.isValid as jest.Mock).mockReturnValue(true);
         const validEmail = 'test@email.com';
 
@@ -21,7 +21,7 @@ describe('Email (Value Object)', () => {
         expect(email.value).toBe(validEmail);
     });
 
-    test('should not create a Email value object if the email provided is not valid', () => {
+    test('should not create an Email value object if the email is invalid', () => {
         (validatorMock.isValid as jest.Mock).mockReturnValue(false);
         const invalidEmail = 'notValidEmail';
 

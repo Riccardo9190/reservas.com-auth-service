@@ -3,10 +3,10 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "test": "jest",
-        "test:watch": "jest --watch",
-        "test:verbose": "jest --verbose",
-        "test:cov": "jest --coverage"
+        "test": "jest --injectGlobals false",
+        "test:watch": "jest --injectGlobals false --watch",
+        "test:verbose": "jest --verbose --injectGlobals false",
+        "test:cov": "jest --coverage --injectGlobals false"
     },
     "keywords": [],
     "author": "",

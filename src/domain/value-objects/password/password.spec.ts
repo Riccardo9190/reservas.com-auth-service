@@ -1,4 +1,4 @@
-import { describe, test } from '@jest/globals';
+import { describe, test, expect } from '@jest/globals';
 import { Password } from './password';
 import { InvalidPasswordError } from '../../errors/invalid-password-error';
 
