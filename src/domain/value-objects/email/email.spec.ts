@@ -14,19 +14,19 @@ describe('Email (Value Object)', () => {
 
     test('should create a valid Email value object', () => {
         (validatorMock.isValid as jest.Mock).mockReturnValue(true);
+        const validEmail = 'test@email.com';
 
-        const email = Email.create('test@email.com', validatorMock);
+        const email = Email.create(validEmail, validatorMock);
 
-        expect(email.value).toBe('test@email.com');
+        expect(email.value).toBe(validEmail);
     });
 
     test('should not create a Email value object if the email provided is not valid', () => {
         (validatorMock.isValid as jest.Mock).mockReturnValue(false);
-
         const invalidEmail = 'notValidEmail';
 
-        expect(() => Email.create(invalidEmail, validatorMock)).toThrow(
-            InvalidEmailError,
-        );
+        const act = () => Email.create(invalidEmail, validatorMock);
+
+        expect(act).toThrow(InvalidEmailError);
     });
 });
