@@ -1,53 +1,66 @@
-import { describe, test, expect } from '@jest/globals';
+import { describe, test, expect, beforeEach, jest } from '@jest/globals';
 import { Password } from './password';
 import { InvalidPasswordError } from '../../errors/invalid-password-error';
+import { Hasher } from '../../contracts/hasher';
 
 describe('Password (Value Object)', () => {
-    test('should create a Password value object when a valid plain is provided', () => {
+    let hasherMock: Hasher;
+
+    beforeEach(() => {
+        hasherMock = {
+            hash: jest
+                .fn<(plain: string) => Promise<string>>()
+                .mockResolvedValue('hashed-password'),
+        };
+    });
+
+    test('should create a Password value object when a valid plain is provided', async () => {
         const validPlain = 'Abcd1234';
 
-        const password = Password.create(validPlain);
+        const password = await Password.create(validPlain, hasherMock);
 
-        expect(password.value).toBe(validPlain);
+        expect(password.value).toBe('hashed-password');
     });
 
-    test('should not create a Password value object if it contains only spaces', () => {
+    test('should not create a Password value object if it contains only spaces', async () => {
         const spacesPlain = '        ';
 
-        const act = () => Password.create(spacesPlain);
+        const act = async () => await Password.create(spacesPlain, hasherMock);
 
-        expect(act).toThrow(InvalidPasswordError.onlySpaces());
+        expect(act).rejects.toThrow(InvalidPasswordError.onlySpaces());
     });
 
-    test('should not create a Password value object if plain is shorter than 8 characters', () => {
+    test('should not create a Password value object if plain is shorter than 8 characters', async () => {
         const shorterPlain = 'Abc123';
 
-        const act = () => Password.create(shorterPlain);
+        const act = async () => await Password.create(shorterPlain, hasherMock);
 
-        expect(act).toThrow(InvalidPasswordError.tooShort());
+        expect(act).rejects.toThrow(InvalidPasswordError.tooShort());
     });
 
-    test('should not create a Password value object if plain is bigger than 36 characters', () => {
+    test('should not create a Password value object if plain is bigger than 36 characters', async () => {
         const longerPlain = 'a9Xf3Lm5Wq2Vt7NpZg6Ey1JhRg2tBcQsMdPvX';
 
-        const act = () => Password.create(longerPlain);
+        const act = async () => await Password.create(longerPlain, hasherMock);
 
-        expect(act).toThrow(InvalidPasswordError.tooLong());
+        expect(act).rejects.toThrow(InvalidPasswordError.tooLong());
     });
 
-    test('should not create a Password value object if it does not contain at least one letter', () => {
+    test('should not create a Password value object if it does not contain at least one letter', async () => {
         const plainWithoutLetter = '12345678';
 
-        const act = () => Password.create(plainWithoutLetter);
+        const act = async () =>
+            await Password.create(plainWithoutLetter, hasherMock);
 
-        expect(act).toThrow(InvalidPasswordError.noLetter());
+        expect(act).rejects.toThrow(InvalidPasswordError.noLetter());
     });
 
-    test('should not create a Password value object if it does not contain at least one number', () => {
+    test('should not create a Password value object if it does not contain at least one number', async () => {
         const plainWithoutNumber = 'AbCdEfgH';
 
-        const act = () => Password.create(plainWithoutNumber);
+        const act = async () =>
+            await Password.create(plainWithoutNumber, hasherMock);
 
-        expect(act).toThrow(InvalidPasswordError.noNumber());
+        expect(act).rejects.toThrow(InvalidPasswordError.noNumber());
     });
 });

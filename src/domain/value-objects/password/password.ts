@@ -1,13 +1,14 @@
 import { InvalidPasswordError } from '../../errors/invalid-password-error';
+import { Hasher } from '../../contracts/hasher';
 
 export class Password {
     private readonly _value: string;
 
-    private constructor(plain: string) {
-        this._value = plain;
+    private constructor(value: string) {
+        this._value = value;
     }
 
-    static create(plain: string): Password {
+    static async create(plain: string, hasher: Hasher): Promise<Password> {
         if (this.onlySpaces(plain)) {
             throw InvalidPasswordError.onlySpaces();
         }
@@ -23,7 +24,7 @@ export class Password {
         if (!this.containsNumber(plain)) {
             throw InvalidPasswordError.noNumber();
         }
-        return new Password(plain);
+        return new Password(await hasher.hash(plain));
     }
 
     get value(): string {
