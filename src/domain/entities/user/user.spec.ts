@@ -1,10 +1,10 @@
 import { describe, test, expect, beforeEach, jest } from '@jest/globals';
 import { User } from './user';
 import { Email } from '../../value-objects/email/email';
-import { EmailValidator } from '../../contracts/email-validator';
+import { EmailValidator } from '../../contracts/validation/email-validator';
 import { Password } from '../../value-objects/password/password';
 import { UserRole } from '../../enums/user-role.enum';
-import { Hasher } from '../../contracts/hasher';
+import { Hasher } from '../../contracts/security/hasher';
 
 describe('User (Entity)', () => {
     let validatorMock: EmailValidator;

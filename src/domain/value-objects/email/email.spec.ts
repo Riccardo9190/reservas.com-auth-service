@@ -1,6 +1,6 @@
 import { describe, test, expect, beforeEach, jest } from '@jest/globals';
 import { Email } from './email';
-import { EmailValidator } from '../../contracts/email-validator';
+import { EmailValidator } from '../../contracts/validation/email-validator';
 import { InvalidEmailError } from '../../errors/invalid-email.error';
 
 describe('Email (Value Object)', () => {

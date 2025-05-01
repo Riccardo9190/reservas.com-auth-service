@@ -1,4 +1,4 @@
-import { EmailValidator } from '../../../domain/contracts/email-validator';
+import { EmailValidator } from '../../../domain/contracts/validation/email-validator';
 
 export class RegexEmailValidatorAdapter implements EmailValidator {
     isValid(email: string): boolean {

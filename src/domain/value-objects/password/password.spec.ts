@@ -1,7 +1,7 @@
 import { describe, test, expect, beforeEach, jest } from '@jest/globals';
 import { Password } from './password';
 import { InvalidPasswordError } from '../../errors/invalid-password-error';
-import { Hasher } from '../../contracts/hasher';
+import { Hasher } from '../../contracts/security/hasher';
 
 describe('Password (Value Object)', () => {
     let hasherMock: Hasher;

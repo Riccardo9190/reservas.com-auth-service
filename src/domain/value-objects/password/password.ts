@@ -1,5 +1,5 @@
 import { InvalidPasswordError } from '../../errors/invalid-password-error';
-import { Hasher } from '../../contracts/hasher';
+import { Hasher } from '../../contracts/security/hasher';
 
 export class Password {
     private readonly _value: string;

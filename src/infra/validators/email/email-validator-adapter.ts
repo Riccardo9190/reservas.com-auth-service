@@ -1,4 +1,4 @@
-import { EmailValidator } from '../../../domain/contracts/email-validator';
+import { EmailValidator } from '../../../domain/contracts/validation/email-validator';
 import * as EmailValidatorLib from 'email-validator';
 
 export class EmailValidatorLibAdapter implements EmailValidator {

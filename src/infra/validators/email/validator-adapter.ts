@@ -1,4 +1,4 @@
-import { EmailValidator } from '../../../domain/contracts/email-validator';
+import { EmailValidator } from '../../../domain/contracts/validation/email-validator';
 import validator from 'validator';
 
 export class ValidatorJsSAdapter implements EmailValidator {

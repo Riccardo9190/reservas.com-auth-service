@@ -1,4 +1,4 @@
-import { EmailValidator } from '../../contracts/email-validator';
+import { EmailValidator } from '../../contracts/validation/email-validator';
 import { InvalidEmailError } from '../../errors/invalid-email.error';
 
 export class Email {
