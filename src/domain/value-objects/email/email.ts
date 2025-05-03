@@ -16,6 +16,10 @@ export class Email {
         return new Email(value);
     }
 
+    static restore(value: string): Email {
+        return new Email(value);
+    }
+
     get value(): string {
         return this._value;
     }

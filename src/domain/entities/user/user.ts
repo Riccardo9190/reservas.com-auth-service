@@ -27,6 +27,24 @@ export class User {
         return new User(id, props);
     }
 
+    static restore(id: string, props: UserProps): User {
+        return new User(id, props);
+    }
+
+    toPersistence(): {
+        id: string;
+        email: string;
+        password: string;
+        role: UserRole;
+    } {
+        return {
+            id: this._id,
+            email: this._email.value,
+            password: this._password.value,
+            role: this._role,
+        };
+    }
+
     get id(): string {
         return this._id;
     }

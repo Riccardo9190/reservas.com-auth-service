@@ -27,6 +27,10 @@ export class Password {
         return new Password(await hasher.hash(plain));
     }
 
+    static restore(value: string): Password {
+        return new Password(value);
+    }
+
     get value(): string {
         return this._value;
     }
