@@ -3,6 +3,8 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
+        "start": "ts-node src/main.ts",
+        "start:dev": "ts-node-dev --respawn --transpile-only src/main.ts",
         "test": "jest --injectGlobals false",
         "test:watch": "jest --injectGlobals false --watch",
         "test:verbose": "jest --verbose --injectGlobals false",
@@ -19,6 +21,8 @@
         "prettier": "^3.5.3",
         "prisma": "^6.7.0",
         "ts-jest": "^29.3.2",
+        "ts-node": "^10.9.2",
+        "ts-node-dev": "^2.0.0",
         "typescript": "^5.8.3"
     },
     "dependencies": {
