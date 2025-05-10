@@ -6,19 +6,23 @@ import { User } from '../../../domain/entities/user/user';
 import { EmailValidator } from '../../../domain/contracts/validation/email-validator';
 import { Hasher } from '../../../domain/contracts/security/hasher';
 import { UserAlreadyExistsError } from '../../errors/user-already-exists.error';
+import { Injectable, Inject } from '@nestjs/common';
 
+@Injectable()
 export class RegisterUserHandler {
     constructor(
+        @Inject('UserRepository')
         private readonly userRepository: UserRepository,
+        @Inject('EmailValidator')
         private readonly emailValidator: EmailValidator,
-        private readonly hasher: Hasher,
+        @Inject('Hasher') private readonly hasher: Hasher,
     ) {}
 
     async execute(command: RegisterUserCommand): Promise<void> {
-        const { email, password, role } = command;
+        const { email, plain, role } = command;
 
         const emailVO = Email.create(email, this.emailValidator);
-        const passwordVO = await Password.create(password, this.hasher);
+        const passwordVO = await Password.create(plain, this.hasher);
 
         const userAlreadyExists =
             await this.userRepository.findByEmail(emailVO);
