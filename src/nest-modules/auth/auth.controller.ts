@@ -1,6 +1,6 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { RegisterUserHandler } from '../../../application/commands/register-user/register-user.handler';
-import { RegisterUserCommand } from '../../../application/commands/register-user/register-user.command';
+import { RegisterUserHandler } from '../../application/commands/register-user/register-user.handler';
+import { RegisterUserCommand } from '../../application/commands/register-user/register-user.command';
 
 @Controller('auth')
 export class AuthController {
