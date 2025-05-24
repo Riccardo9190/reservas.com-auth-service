@@ -8,6 +8,7 @@ import {
 import { RegisterUserHandler } from '../../application/commands/register-user/register-user.handler';
 import { RegisterUserCommand } from '../../application/commands/register-user/register-user.command';
 import { UserAlreadyExistsError } from '../../application/errors/user-already-exists.error';
+import { UnexpectedError } from '../../application/errors/unexpected-error';
 import { RegisterUserDto } from './register-user.dto';
 
 @Controller('auth')
@@ -31,9 +32,13 @@ export class AuthController {
                 throw new ConflictException(error.message);
             }
 
-            throw new BadRequestException('Unexpected error');
+            if (error instanceof UnexpectedError) {
+                throw new BadRequestException(error.message);
+            }
         }
 
-        return { message: `User ${command.email} registered successfully.` };
+        return {
+            message: `User ${command.email} registered successfully.`,
+        };
     }
 }
