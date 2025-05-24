@@ -1,19 +1,14 @@
 import { describe, test, expect, beforeEach, jest } from '@jest/globals';
 import { User } from './user';
 import { Email } from '../../value-objects/email/email';
-import { EmailValidator } from '../../contracts/validation/email-validator';
 import { Password } from '../../value-objects/password/password';
 import { UserRole } from '../../enums/user-role.enum';
 import { Hasher } from '../../contracts/security/hasher';
 
 describe('User (Entity)', () => {
-    let validatorMock: EmailValidator;
     let hasherMock: Hasher;
 
     beforeEach(() => {
-        validatorMock = {
-            isValid: jest.fn<(email: string) => boolean>(),
-        };
         hasherMock = {
             hash: jest
                 .fn<(plain: string) => Promise<string>>()
@@ -22,8 +17,7 @@ describe('User (Entity)', () => {
     });
 
     test('should create a User entity if valid value objects are provided', async () => {
-        (validatorMock.isValid as jest.Mock).mockReturnValue(true);
-        const email = Email.create('test@email.com', validatorMock);
+        const email = Email.create('test@email.com');
         const password = await Password.create('Abc12345', hasherMock);
         const role = UserRole.CLIENT;
 

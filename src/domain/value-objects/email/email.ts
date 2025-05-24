@@ -1,6 +1,3 @@
-import { EmailValidator } from '../../contracts/validation/email-validator';
-import { InvalidEmailError } from '../../errors/invalid-email.error';
-
 export class Email {
     private readonly _value: string;
 
@@ -8,11 +5,7 @@ export class Email {
         this._value = value;
     }
 
-    static create(value: string, validator: EmailValidator): Email {
-        if (!validator.isValid(value)) {
-            throw new InvalidEmailError(value);
-        }
-
+    static create(value: string): Email {
         return new Email(value);
     }
 
