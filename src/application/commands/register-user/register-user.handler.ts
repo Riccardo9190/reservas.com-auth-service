@@ -1,4 +1,5 @@
 import { RegisterUserCommand } from './register-user.command';
+import { USER_REPOSITORY, HASHER } from '../../../domain/di/tokens';
 import { UserRepository } from '../../../domain/contracts/persistence/user-repository';
 import { Email } from '../../../domain/value-objects/email/email';
 import { Password } from '../../../domain/value-objects/password/password';
@@ -16,9 +17,9 @@ export class RegisterUserHandler
     implements ICommandHandler<RegisterUserCommand, OutputRegisterUserHandler>
 {
     constructor(
-        @Inject('UserRepository')
+        @Inject(USER_REPOSITORY)
         private readonly userRepository: UserRepository,
-        @Inject('Hasher') private readonly hasher: Hasher,
+        @Inject(HASHER) private readonly hasher: Hasher,
     ) {}
 
     async execute(

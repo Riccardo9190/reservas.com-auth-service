@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { USER_REPOSITORY, HASHER } from '../../domain/di/tokens';
 import { AuthController } from './auth.controller';
 import { RegisterUserHandler } from '../../application/commands/register-user/register-user.handler';
 
@@ -11,8 +12,8 @@ import { PrismaService } from '../../infra/database/prisma.service';
     providers: [
         PrismaService,
         RegisterUserHandler,
-        { provide: 'UserRepository', useClass: PrismaUserRepository },
-        { provide: 'Hasher', useClass: BcryptjsHasherAdapter },
+        { provide: USER_REPOSITORY, useClass: PrismaUserRepository },
+        { provide: HASHER, useClass: BcryptjsHasherAdapter },
     ],
 })
 export class AuthModule {}
