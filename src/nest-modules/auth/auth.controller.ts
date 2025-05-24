@@ -5,7 +5,6 @@ import {
     Post,
     Body,
 } from '@nestjs/common';
-import { ZodValidationPipe } from '@anatine/zod-nestjs';
 import { RegisterUserHandler } from '../../application/commands/register-user/register-user.handler';
 import { RegisterUserCommand } from '../../application/commands/register-user/register-user.command';
 import { UserAlreadyExistsError } from '../../application/errors/user-already-exists.error';
@@ -16,7 +15,7 @@ export class AuthController {
     constructor(private readonly registerUserHandler: RegisterUserHandler) {}
 
     @Post('register')
-    async register(@Body(new ZodValidationPipe()) dto: RegisterUserDto) {
+    async register(@Body() dto: RegisterUserDto) {
         const command: RegisterUserCommand = {
             email: dto.email,
             plain: dto.plain,
