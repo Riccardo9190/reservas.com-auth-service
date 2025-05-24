@@ -17,7 +17,7 @@ export class PrismaUserRepository implements UserRepository {
 
         if (!userData) return null;
 
-        return User.restore(userData.id, {
+        return User.restore(userData.id, userData.uuid, {
             email: Email.restore(userData.email),
             password: Password.restore(userData.password),
             role: userData.role as UserRole,
@@ -25,10 +25,15 @@ export class PrismaUserRepository implements UserRepository {
     }
 
     async save(user: User): Promise<void> {
-        const { id, email, password, role } = user.toPersistence();
+        const { uuid, email, password, role } = user.toPersistence();
 
         await this.prisma.user.create({
-            data: { id, email, password, role, createdAt: new Date() },
+            data: {
+                uuid,
+                email,
+                password,
+                role,
+            },
         });
     }
 }

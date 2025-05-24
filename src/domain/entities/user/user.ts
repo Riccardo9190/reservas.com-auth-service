@@ -10,43 +10,49 @@ type UserProps = {
 };
 
 export class User {
-    private readonly _id: string;
+    private readonly _id: number;
+    private readonly _uuid: string;
     private readonly _email: Email;
     private readonly _password: Password;
     private readonly _role: UserRole;
 
-    private constructor(id: string, props: UserProps) {
+    private constructor(id: number, uuid: string, props: UserProps) {
         this._id = id;
+        this._uuid = uuid;
         this._email = props.email;
         this._password = props.password;
         this._role = props.role;
     }
 
     static create(props: UserProps): User {
-        const id = uuidv4();
-        return new User(id, props);
+        const uuid = uuidv4();
+        return new User(0, uuid, props);
     }
 
-    static restore(id: string, props: UserProps): User {
-        return new User(id, props);
+    static restore(id: number, uuid: string, props: UserProps): User {
+        return new User(id, uuid, props);
     }
 
     toPersistence(): {
-        id: string;
+        uuid: string;
         email: string;
         password: string;
-        role: UserRole;
+        role: string;
     } {
         return {
-            id: this._id,
+            uuid: this._uuid,
             email: this._email.value,
             password: this._password.value,
             role: this._role,
         };
     }
 
-    get id(): string {
+    get id(): number {
         return this._id;
+    }
+
+    get uuid(): string {
+        return this._uuid;
     }
 
     get email(): Email {

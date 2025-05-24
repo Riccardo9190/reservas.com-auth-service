@@ -8,11 +8,12 @@ datasource db {
 }
 
 model User {
-  id        String   @id
-  email     String   @unique
-  password  String
-  role      String
-  createdAt DateTime @default(now()) @db.Timestamp(0)
+  id        Int      @id @default(autoincrement()) @map("id_user") @db.UnsignedInt
+  uuid      String   @unique @map("uuid_user") @db.Char(36)
+  email     String   @unique @map("email_user") @db.VarChar(255)
+  password  String   @map("password_user") @db.VarChar(255)
+  role      String   @map("role_user") @db.VarChar(50)
+  createdAt DateTime @default(now()) @map("date_insert") @db.Timestamp(0)
 
   @@map("user")
 }
