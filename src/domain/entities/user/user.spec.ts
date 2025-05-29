@@ -13,6 +13,9 @@ describe('User (Entity)', () => {
             hash: jest
                 .fn<(plain: string) => Promise<string>>()
                 .mockResolvedValue('hashed-password'),
+            compare: jest
+                .fn<(plain: string, hashed: string) => Promise<boolean>>()
+                .mockResolvedValue(true),
         };
     });
 

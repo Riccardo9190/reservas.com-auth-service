@@ -62,4 +62,8 @@ export class User {
     get role(): UserRole {
         return this._role;
     }
+
+    get password(): Password {
+        return this._password;
+    }
 }

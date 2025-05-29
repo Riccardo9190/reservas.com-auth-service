@@ -1,8 +1,7 @@
 import { z } from 'zod';
 import { createZodDto } from '@anatine/zod-nestjs';
-import { UserRole } from '../../domain/enums/user-role.enum';
 
-export const RegisterUserSchema = z.object({
+export const LoginUserSchema = z.object({
     email: z.string().email({ message: 'Invalid email format' }),
     plain: z
         .string()
@@ -13,9 +12,6 @@ export const RegisterUserSchema = z.object({
         .refine(val => val.trim().length > 0, {
             message: 'Password cannot be only spaces',
         }),
-    role: z.nativeEnum(UserRole, {
-        errorMap: () => ({ message: 'Invalid user role' }),
-    }),
 });
 
-export class RegisterUserDto extends createZodDto(RegisterUserSchema) {}
+export class LoginUserDto extends createZodDto(LoginUserSchema) {}

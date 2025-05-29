@@ -6,12 +6,14 @@ import { RegisterUserHandler } from '../../application/commands/register-user/re
 import { PrismaUserRepository } from '../../infra/repositories/prisma/prisma-user.repository';
 import { BcryptjsHasherAdapter } from '../../infra/cryptography/bcryptjs-hasher-adapter';
 import { PrismaService } from '../../infra/database/prisma.service';
+import { LoginUserHandler } from '../../application/commands/login-user/login-user.handler';
 
 @Module({
     controllers: [AuthController],
     providers: [
         PrismaService,
         RegisterUserHandler,
+        LoginUserHandler,
         { provide: USER_REPOSITORY, useClass: PrismaUserRepository },
         { provide: HASHER, useClass: BcryptjsHasherAdapter },
     ],

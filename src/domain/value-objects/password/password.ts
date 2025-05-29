@@ -16,6 +16,10 @@ export class Password {
         return new Password(value);
     }
 
+    async compare(plain: string, hasher: Hasher): Promise<boolean> {
+        return hasher.compare(plain, this._value);
+    }
+
     get value(): string {
         return this._value;
     }
